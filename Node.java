@@ -4,7 +4,7 @@
  * APL 1
  * ALAN MENIUK GLEIZER -
  * CAIO VINICIUS CORSINI FILHO - 10342005
- * GILBERTO DE MELO JUNIOR - 10419275
+ * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
 
 
@@ -36,7 +36,7 @@ public class Node {
     }
 
     /**
-     * Construtor para um nó que é um valor
+     * Construtor para um nó que é um valor Double
      * @param valor
      * @param parent
      * @param left
@@ -102,7 +102,6 @@ public class Node {
 
     // The height of a node in a tree is the length of the longest
     // path from that node to a leaf
-
     /**
      * Retorna a altura do nó
      * @return altura(int)
