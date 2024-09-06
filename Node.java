@@ -8,11 +8,10 @@
  * **/
 
 
-public class Node {
+public class Node<T> {
 
     // atributos
-    private String operador;
-    private Double valor;
+    private <T> data;
     private Node parent;
     private Node left;
     private Node right;
@@ -21,45 +20,28 @@ public class Node {
 
     /**
      * Construtor para nó que é um operador
-     * @param dado
+     * @param data
      * @param parent
      * @param left
      * @param right
      */
     // TODO: Restringir o tipo de operadores aqui?
-    public Node(String operador, Node parent, Node left, Node right) {
-        this.operador = operador;
+    public Node(T data, Node parent, Node left, Node right) {
+        this.data = data;
         this.parent = parent;
         this.left = left;
         this.right = right;
-        this.valor = null; // o nó é só para operadores
     }
 
-    /**
-     * Construtor para um nó que é um valor Double
-     * @param valor
-     * @param parent
-     * @param left
-     * @param right
-     */
-    public Node(Double valor, Node parent, Node left, Node right) {
-        this.valor = valor;
-        this.parent = parent;
-        this.left = null; // valores são folhas
-        this.right = null;
-        this.operador = null; // nó para valores somente
-    }
 
     // setters
-    public void setOperador(String operador) { this.operador = operador; }
-    public void setValor(Double valor) { this.valor = valor; }
+    public void setda(T data) { this.data = data; }
     public void setParent(Node parent) { this.parent = parent; }
     public void setLeft(Node left) { this.left = left; }
     public void serRight(Node right) { this.right = right; }
 
     // getters
-    public Double getValor() { return valor; }
-    public String getOperador() { return operador; }
+    public T getData() { return data; }
     public Node getParent() { return parent; }
     public Node getLeft() { return left; }
     public Node getRight() { return right; }
@@ -67,8 +49,6 @@ public class Node {
     // outros métodos
     public boolean isRoot() { return parent == null; }
     public boolean isLeaf() { return (left == null) && (right == null); }
-    public boolean isValue() { return this.valor != null; }
-    public boolean isOperator() { return this.operador != null; }
 
     /**
      * Returna o grau do nó
@@ -85,7 +65,6 @@ public class Node {
 
     // The level of a node is defined as the number of edges
     // from the root to the node.
-
     /**
      * Return o nível do nó
      * @return nível (int)
