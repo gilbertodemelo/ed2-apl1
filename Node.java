@@ -2,7 +2,7 @@
  * ESTRUTURA DE DADOS II
  * TURMA 04P11
  * APL 1
- * ALAN MENIUK GLEIZER -
+ * ALAN MENIUK GLEIZER - 10416804
  * CAIO VINICIUS CORSINI FILHO - 10342005
  * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
@@ -11,21 +11,12 @@
 public class Node<T> {
 
     // atributos
-    private <T> data;
+    private T data;
     private Node parent;
     private Node left;
     private Node right;
 
     // construtores
-
-    /**
-     * Construtor para nó que é um operador
-     * @param data
-     * @param parent
-     * @param left
-     * @param right
-     */
-    // TODO: Restringir o tipo de operadores aqui?
     public Node(T data, Node parent, Node left, Node right) {
         this.data = data;
         this.parent = parent;
@@ -33,9 +24,8 @@ public class Node<T> {
         this.right = right;
     }
 
-
     // setters
-    public void setda(T data) { this.data = data; }
+    public void setData(T data) { this.data = data; }
     public void setParent(Node parent) { this.parent = parent; }
     public void setLeft(Node left) { this.left = left; }
     public void serRight(Node right) { this.right = right; }
