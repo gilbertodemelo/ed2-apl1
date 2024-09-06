@@ -28,7 +28,7 @@ public class Node<T> {
     public void setData(T data) { this.data = data; }
     public void setParent(Node parent) { this.parent = parent; }
     public void setLeft(Node left) { this.left = left; }
-    public void serRight(Node right) { this.right = right; }
+    public void setRight(Node right) { this.right = right; }
 
     // getters
     public T getData() { return data; }

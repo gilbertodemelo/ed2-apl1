@@ -25,14 +25,22 @@ public class Main {
          */
 
          // testes Alan tokenizer
-         /*
-         String teste = "(3 + 6)*(4.5 -1)+  5";
-         VeryBasicTokenizer vbt = new VeryBasicTokenizer(teste);
-         List<String> tokens = vbt.tokenize();
-         for (int i = 0; i < tokens.size(); ++i) {
-            System.out.println("Token[" + i + "]: " + tokens.get(i));
-    }
-             */
+         
+        String teste = "(3 + 6)*(4.5 -1)+  5";
+        VeryBasicTokenizer vbt = new VeryBasicTokenizer(teste);
+        List<String> tokens = vbt.tokenize();
+        for (int i = 0; i < tokens.size(); ++i) {
+           //System.out.println("Token[" + i + "]: " + tokens.get(i));
+        }
+
+        ExpressionTree etree = new ExpressionTree();
+        BinaryTree arvore = etree.expressionTreeBuilder(tokens);
+        if (arvore != null) {
+            arvore.inOrderTraversal();
+        } else {
+            System.out.println("Failed to build the expression tree.");
+        }
+    
 
 }
 } // Main

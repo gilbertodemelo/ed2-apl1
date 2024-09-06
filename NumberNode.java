@@ -7,22 +7,23 @@
  * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
 
-
-public class NumberNode<T extends Number> extends Node<T> {
+// era public class NumberNode<T extends Number> extends Node<T>
+// vou trocar para tipo float para eliminar alguns warnings... -Alan
+public class NumberNode extends Node<Float> {
 
     // atributo(s)
-    private T data;
+    private Float data;
     private Node parent;
     private Node left;
     private Node right;
 
     // construtor(es)
-    public NumberNode(T data, Node parent, Node left, Node right){
+    public NumberNode(Float data, Node parent, Node left, Node right){
         super(data, parent, left, right);
     }
 
     // setters
-    public void setData(T data) {
+    public void setData(Float data) {
         this.data = data;
     }
 

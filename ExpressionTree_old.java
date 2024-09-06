@@ -1,19 +1,3 @@
-/**
- * ESTRUTURA DE DADOS II
- * TURMA 04P11
- * APL 1
- * ALAN MENIUK GLEIZER - 10416804
- * CAIO VINICIUS CORSINI FILHO - 10342005
- * GILBERTO DE MELO JÚNIOR - 10419275
- * **/
-
- /* REFERÊNCIAS
-  * Vídeo sobre expression trees: https://www.youtube.com/watch?v=qPoS1iM2JXY
-  * Exemplos para construção posfixa: https://www.geeksforgeeks.org/expression-tree/ 
-  * Discussão de problema similar no LeetCode: https://leetcode.ca/2020-04-14-1597-Build-Binary-Expression-Tree-From-Infix-Expression/#
-  * Discussão 2: https://algo.monster/liteproblems/1597
-  */
-
 import java.util.List;
 import java.util.Stack;
 
@@ -21,12 +5,14 @@ public class ExpressionTree {
     // attributes
     // private List<String> input; // sera que é necessário? acho que posso simplesmente passar pra função....
     private Stack<OperatorNode> operatorStack;
+    private Stack<NumberNode> numberStack;
     private Stack<Node> nodeStack;
     private BinaryTree expressionTree;
 
-    // constructors
+    // construtores
     public ExpressionTree() {
         operatorStack = new Stack<>();
+        numberStack = new Stack<>();
         nodeStack = new Stack<>();
     }
     
@@ -62,7 +48,7 @@ public class ExpressionTree {
             // pegar elemento i da lista
             String currElementStr = input.get(i);
             
-            // transformar elemento em array de char para análise fácil
+            // transformar elemento em array de char
             char[] currElement = currElementStr.toCharArray();
 
             // avaliar do que se trata o elemento atual
@@ -93,12 +79,13 @@ public class ExpressionTree {
                 else {
                     // se current não for parênteses ou número, é operador
                     // comparar prioridade
-                    while (!operatorStack.isEmpty() && priority(currElement[0]) <= priority((operatorStack.peek().getData()).charAt(0))) {
+                    if (!operatorStack.isEmpty() && priority(currElement[0]) <= priority((operatorStack.peek().getData()).charAt(0))) {
                         // se current tiver prioridade <= topo da stack, criar subarvore
                         createSubtree();
+                    } else {
+                        // caso contrário, empilhar
+                        operatorStack.push(tempOpNode);  // <---- PROBLEMA PARECE ESTAR AQUI !!!! (será que precisa do elso? testar)
                     }
-                    // empilhar o operador após as subárvores serem criadas, se necessário
-                    operatorStack.push(tempOpNode);
                 }
 
             }
@@ -113,4 +100,7 @@ public class ExpressionTree {
 
         return expressionTree;
     }
+
+
+
 }
