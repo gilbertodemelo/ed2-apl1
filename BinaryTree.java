@@ -7,11 +7,11 @@
  * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
 
-public class BinaryTree {
+public class BinaryTree<T> {
 
 
     // atributos
-    private Node root;
+    private Node<T> root;
 
     // construtor(es)
     public BinaryTree(Node root) {
@@ -36,6 +36,31 @@ public class BinaryTree {
 
     //public int getDegree();
     //public int getHeight();
+
+    public void insert(T value) {
+        root = inserir(root, value);
+    }
+
+
+    // método auxiliar
+    private Node<T> inserir(Node<T> node, T value) {
+        if (node == null) {
+            return new Node<>(value);
+        }
+
+
+        // comparacao para BST
+        // TODO: precisa ser ajustado para colocar de acordo com a
+        // expressao matematica
+        if (((Comparable<T>) value).compareTo(node.getData()) < 0) {
+            node.setLeft(insertRec(node.getLeft(), value));
+        } else if (((Comparable<T>) value).compareTo(node.getData()) > 0) {
+            node.setRight(insertRec(node.getRight(), value));
+        }
+
+        return node;
+
+    }
 
 
 
@@ -73,7 +98,7 @@ public class BinaryTree {
     private void traversePostOrder(Node node) {
         if(node != null) {
             traversePostOrder(node.getLeft());
-            traverPostOrder(node.getRight());
+            traversePostOrder(node.getRight());
             System.out.println(node.getData() + " ");
         }
     }
