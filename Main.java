@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * ESTRUTURA DE DADOS II
  * TURMA 04P11
@@ -11,6 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /* testes Gilberto
         OperatorNode oNode = new OperatorNode("+", null, null, null);
         System.out.println(oNode.getData());
 
@@ -19,7 +22,17 @@ public class Main {
 
         NumberNode nNode2 = new NumberNode(3.14, null, null, null);
         System.out.println(nNode2.getData());
+         */
 
+         // testes Alan tokenizer
+         /*
+         String teste = "(3 + 6)*(4.5 -1)+  5";
+         VeryBasicTokenizer vbt = new VeryBasicTokenizer(teste);
+         List<String> tokens = vbt.tokenize();
+         for (int i = 0; i < tokens.size(); ++i) {
+            System.out.println("Token[" + i + "]: " + tokens.get(i));
     }
+             */
 
+}
 } // Main
