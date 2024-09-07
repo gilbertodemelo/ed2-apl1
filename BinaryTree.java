@@ -80,7 +80,7 @@ public class BinaryTree<T> {
     private void traverseInOrder(Node node) {
         if (node != null) {
             traverseInOrder(node.getLeft());
-            System.out.println(node.getData() + " ");
+            System.out.printf("%s ", node.getData());
             traverseInOrder(node.getRight());
         }
     }
@@ -88,7 +88,7 @@ public class BinaryTree<T> {
     // método auxiliar - preOrder
     private void traversePreOrder(Node node) {
         if(node != null) {
-            System.out.println(node.getData() + " ");
+            System.out.printf("%s ", node.getData());
             traversePreOrder(node.getLeft());
             traversePreOrder(node.getRight());
         }
@@ -99,7 +99,7 @@ public class BinaryTree<T> {
         if(node != null) {
             traversePostOrder(node.getLeft());
             traversePostOrder(node.getRight());
-            System.out.println(node.getData() + " ");
+            System.out.printf("%s ", node.getData());
         }
     }
 
