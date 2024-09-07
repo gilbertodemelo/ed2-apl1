@@ -18,10 +18,16 @@ import java.util.List;
 public class VeryBasicTokenizer {
     private char[] input;
     private int index;
+    private Boolean expValida;
 
     public VeryBasicTokenizer(String str) {
         input = str.toCharArray();
         index = 0;
+        expValida = false; // expressão é inválida até ser tokenizada
+    }
+
+    public Boolean expValida() {
+        return this.expValida;
     }
 
     // Avança para o próximo caractere e retorna seu valor.
@@ -37,6 +43,9 @@ public class VeryBasicTokenizer {
         List<String> tokens = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         char currChar = getNextChar();
+        int qtdAbertura = 0;
+        int qtdFechamento = 0;
+        expValida = true; // ao tokenizar, expressão passa para válida (e vira false se encontrarmos algum erro)
 
         boolean isTokenizing = true;
         while (isTokenizing) {
@@ -75,23 +84,38 @@ public class VeryBasicTokenizer {
 
             } else if (currChar == ')') { // Reconhece símbolo (
                 tokens.add(")");
+                qtdFechamento++;
                 currChar = getNextChar();
 
             } else if (currChar == '(') { // Reconhece símbolo )
                 tokens.add("(");
+                qtdAbertura++;
                 currChar = getNextChar();
 
             } else if (currChar == '\0') {
-                System.out.println("Chegou ao final da string.");
+                //System.out.println("Chegou ao final da string.");
                 isTokenizing = false;
 
             } else {
-                System.out.println("Token não reconhecido: " + currChar);
+                System.out.println("ERRO: Dígito " + currChar + " não suportado!\nTente novamente.\n");
+                expValida = false;
                 isTokenizing = false;
             }
         }
 
         //System.out.println("Encerrando...\n");
+        if (expValida && qtdAbertura != qtdFechamento) {
+            System.out.println("ERRO: Parênteses desbalanceados!\nTente novamente.\n");
+            expValida = false;
+        }
+
+        if (!expValida) {
+            sb = null;
+            tokens = null;
+            qtdAbertura = 0;
+            qtdFechamento = 0;
+            return null;
+        }
         return tokens;
     }
 
