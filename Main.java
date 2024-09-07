@@ -26,7 +26,7 @@ public class Main {
 
          // testes Alan tokenizer
          
-        String teste = "(3 + 6)*(4.5 -1)+  5";
+        String teste = "(1+2)*3+7";
         VeryBasicTokenizer vbt = new VeryBasicTokenizer(teste);
         List<String> tokens = vbt.tokenize();
         for (int i = 0; i < tokens.size(); ++i) {
@@ -36,7 +36,7 @@ public class Main {
         ExpressionTree etree = new ExpressionTree();
         BinaryTree arvore = etree.expressionTreeBuilder(tokens);
         if (arvore != null) {
-            arvore.inOrderTraversal();
+            arvore.preOrderTraversal();
         } else {
             System.out.println("Failed to build the expression tree.");
         }
