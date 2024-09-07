@@ -1,10 +1,20 @@
+/**
+ * ESTRUTURA DE DADOS II
+ * TURMA 04P11
+ * APL 1
+ * ALAN MENIUK GLEIZER - 10416804
+ * CAIO VINICIUS CORSINI FILHO - 10342005
+ * GILBERTO DE MELO JÚNIOR - 10419275
+ * **/
+
+  /* REFERÊNCIAS
+  * Adaptação da classe disponibilizada nas orientações
+  */
+
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * adaptação da classe disponibilizada nas orientações
- * função tokenize recebe uma String e retorna uma lista de Strings com os tokens reconhecidos
-*/
+ // função tokenize recebe uma String e retorna uma lista de Strings com os tokens reconhecidos
 public class VeryBasicTokenizer {
     private char[] input;
     private int index;

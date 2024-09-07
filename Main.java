@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * ESTRUTURA DE DADOS II
  * TURMA 04P11
@@ -8,6 +6,8 @@ import java.util.List;
  * CAIO VINICIUS CORSINI FILHO - 10342005
  * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
+
+import java.util.List;
 
 public class Main {
 
@@ -30,7 +30,7 @@ public class Main {
         VeryBasicTokenizer vbt = new VeryBasicTokenizer(teste);
         List<String> tokens = vbt.tokenize();
         for (int i = 0; i < tokens.size(); ++i) {
-           //System.out.println("Token[" + i + "]: " + tokens.get(i));
+           System.out.println("Token[" + i + "]: " + tokens.get(i));
         }
 
         ExpressionTree etree = new ExpressionTree();

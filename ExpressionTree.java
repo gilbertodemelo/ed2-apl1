@@ -30,7 +30,6 @@ public class ExpressionTree {
         nodeStack = new Stack<>();
     }
     
-
     // retorna a prioridade de cada operador
     int priority (char operator) {
         if (operator == '(' || operator == ')') {
@@ -44,6 +43,8 @@ public class ExpressionTree {
         }
     }
 
+    // função será chamada sempre que for necessário criar uma subárvore COMPLETA (um operador root com dois operandos leaf)
+    // função sem parâmetros ou retorno. elementos são desempilhados dos stacks e referência para a raíz da subárvore é reempilhada
     private void createSubtree() {
         Node tempNode1 = nodeStack.pop();
         Node tempNode2 = nodeStack.pop();
@@ -56,10 +57,11 @@ public class ExpressionTree {
         nodeStack.push(tempNodeRoot);
     }
 
+    // função responsável pela construção da árvore de expressão a partir de uma lista de Strings (retornada pelo VeryBasicTokenizer)
     public BinaryTree expressionTreeBuilder(List<String> input) {
         // percorrer a expressao
         for (int i = 0; i < input.size(); i++) {
-            // pegar elemento i da lista
+            // pegar elemento i da lista (acesso com .get(), não com notação de array [i]!)
             String currElementStr = input.get(i);
             
             // transformar elemento em array de char para análise fácil
@@ -67,16 +69,16 @@ public class ExpressionTree {
 
             // avaliar do que se trata o elemento atual
             if (Character.isDigit(currElement[0])) {
-                // se o primeiro elemento de currElement for um numero, então currElementStr todo será um numero (de tamanho n)
-                // converter currelementStr para float
+                // se o primeiro elemento de currElement for um numero, então sabemos que currElementStr todo será um numero (int ou float, de tamanho n)
+                // converter currelementStr para float, criar um novo Node com o dado...
                 NumberNode tempNumNode = new NumberNode(Float.parseFloat(currElementStr), null, null, null);
-
-                //  e empilhar no nodeStack
+                //  ... e empilhar no nodeStack
                 nodeStack.push(tempNumNode);
             } else {
-                // se não for um número, então é um operador
+                // se não for um número, então é um operador. criar um NodeOperator...
                 OperatorNode tempOpNode = new OperatorNode(currElementStr, null, null, null);
 
+                // ... e empilhar
                 if (currElement[0] == '(') operatorStack.push(tempOpNode);
 
                 else if (currElement[0] == ')') {
@@ -86,7 +88,7 @@ public class ExpressionTree {
                         createSubtree();
                     }
 
-                    // quando sairmos do while loop, o top da steck é a abertura do parenteses, podemos pop e descartar
+                    // quando sairmos do while loop, o top da stack é a abertura do parenteses, podemos pop e descartar
                     operatorStack.pop();
                 }
 
