@@ -62,26 +62,23 @@ public class ExpressionTree {
         // percorrer a expressao
         for (int i = 0; i < input.size(); i++) {
             // pegar elemento i da lista (acesso com .get(), não com notação de array [i]!)
-            String currElementStr = input.get(i);
-            
-            // transformar elemento em array de char para análise fácil
-            char[] currElement = currElementStr.toCharArray();
+            String currElement = input.get(i);
 
             // avaliar do que se trata o elemento atual
-            if (Character.isDigit(currElement[0])) {
-                // se o primeiro elemento de currElement for um numero, então sabemos que currElementStr todo será um numero (int ou float, de tamanho n)
-                // converter currelementStr para float, criar um novo Node com o dado...
-                NumberNode tempNumNode = new NumberNode(Float.parseFloat(currElementStr), null, null, null);
+            if (Character.isDigit(currElement.charAt(0))) {
+                // se o primeiro elemento de currElement for um numero, então sabemos que currElement todo será um numero (int ou float, de tamanho n)
+                // converter currelement para float, criar um novo Node com o dado...
+                NumberNode tempNumNode = new NumberNode(Float.parseFloat(currElement), null, null, null);
                 //  ... e empilhar no nodeStack
                 nodeStack.push(tempNumNode);
             } else {
                 // se não for um número, então é um operador. criar um NodeOperator...
-                OperatorNode tempOpNode = new OperatorNode(currElementStr, null, null, null);
+                OperatorNode tempOpNode = new OperatorNode(currElement, null, null, null);
 
                 // ... e empilhar
-                if (currElement[0] == '(') operatorStack.push(tempOpNode);
+                if (currElement.equals("(")) operatorStack.push(tempOpNode);
 
-                else if (currElement[0] == ')') {
+                else if (currElement.equals(")")) {
                     // se for um fechamento de parenteses, precisamos criar uma subárvore que comporte todas as operaçoẽs, já lidas, dentro desse grupo de parenteses
                     while (!operatorStack.peek().getData().equals("(")) { // enquanto o elemento no topo da stack não é a abertura do ()
                         // desempilhar dois Nodes e um operador e criar uma subárvore
@@ -95,7 +92,7 @@ public class ExpressionTree {
                 else {
                     // se current não for parênteses ou número, é operador
                     // comparar prioridade
-                    while (!operatorStack.isEmpty() && priority(currElement[0]) <= priority((operatorStack.peek().getData()).charAt(0))) {
+                    while (!operatorStack.isEmpty() && priority(currElement.charAt(0)) <= priority((operatorStack.peek().getData()).charAt(0))) {
                         // se current tiver prioridade <= topo da stack, criar subarvore
                         createSubtree();
                     }
