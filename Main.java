@@ -68,7 +68,7 @@ public class Main {
 
             // Impressao da arvore nos 3 modos
             if(option == 3){
-                if(arvore == null){
+                if(arvore == null || etree == null){
                     System.out.println("\nFavor gerar uma arvore antes de selecionar esta opcao.\n");
                 } else{
                     System.out.printf("\nPre ordem: ");
