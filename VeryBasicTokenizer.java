@@ -37,7 +37,10 @@ public class VeryBasicTokenizer {
         return input[index++];
     }
 
-    // private Boolean lastCharIsOperator()
+    private Boolean isValidOperator(char current) {
+        if (current == '+' || current == '-' || current == '*' || current == '/') return true;
+        else return false;
+    }
 
     // Separa a string em tokens e retorna uma lista de strings,
     // sendo que cada string é um token reconhecido pelo método.
@@ -45,20 +48,34 @@ public class VeryBasicTokenizer {
         List<String> tokens = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         char currChar = getNextChar();
+        char lastChar = ' ';
         int qtdAbertura = 0;
         int qtdFechamento = 0;
         expValida = true; // ao tokenizar, expressão passa para válida (e vira false se encontrarmos algum erro)
-
         boolean isTokenizing = true;
+        Boolean hasDecimalPoint = false;
+
         while (isTokenizing) {
             // Ignora espaços em branco.
             while (Character.isWhitespace(currChar)) {
                 currChar = getNextChar();
             }
 
-            if (Character.isDigit(currChar)) { // Reconhece um número (inteiro ou float)
+            if ((currChar == '-' && tokens.isEmpty()) || (currChar == '-' && isValidOperator(lastChar))) { // Reconhece um número (inteiro ou float)
                 sb.setLength(0);
-                Boolean hasDecimalPoint = false;
+                hasDecimalPoint = false;
+                while (Character.isDigit(currChar) || (currChar == '.' && !hasDecimalPoint)) { // Permite um único ponto decimal
+                    if (currChar == '.') {
+                        hasDecimalPoint = true;  
+                    }
+                    sb.append(currChar);
+                    currChar = getNextChar();
+                }
+                tokens.add(sb.toString());
+
+            } else if (Character.isDigit(currChar)) { // Reconhece um número (inteiro ou float)
+                sb.setLength(0);
+                hasDecimalPoint = false;
                 while (Character.isDigit(currChar) || (currChar == '.' && !hasDecimalPoint)) { // Permite um único ponto decimal
                     if (currChar == '.') {
                         hasDecimalPoint = true;  
@@ -103,6 +120,7 @@ public class VeryBasicTokenizer {
                 expValida = false;
                 isTokenizing = false;
             }
+            lastChar = currChar;
 
         }
 
