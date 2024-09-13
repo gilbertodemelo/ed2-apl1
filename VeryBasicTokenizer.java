@@ -1,4 +1,4 @@
-/**
+/*
  * ESTRUTURA DE DADOS II
  * TURMA 04P11
  * APL 1
@@ -7,9 +7,9 @@
  * GILBERTO DE MELO JÚNIOR - 10419275
  * **/
 
-  /* REFERÊNCIAS
-  * Adaptação da classe disponibilizada nas orientações
-  */
+/* REFERÊNCIAS
+ * Adaptação da classe disponibilizada nas orientações
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,8 @@ public class VeryBasicTokenizer {
         if (index >= input.length) { return '\0'; }
         return input[index++];
     }
+
+    // private Boolean lastCharIsOperator()
 
     // Separa a string em tokens e retorna uma lista de strings,
     // sendo que cada string é um token reconhecido pelo método.
@@ -101,6 +103,7 @@ public class VeryBasicTokenizer {
                 expValida = false;
                 isTokenizing = false;
             }
+
         }
 
         //System.out.println("Encerrando...\n");

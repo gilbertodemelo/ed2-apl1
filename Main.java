@@ -24,6 +24,7 @@ public class Main {
         BinaryTree arvore = null;
         VeryBasicTokenizer vbt = null;
         List<String> tokens = null;
+        Validator validador = null;
 
         // Loop de uso do programa
         while(option != 5){
@@ -44,12 +45,14 @@ public class Main {
             if(option == 1){
                 System.out.printf("\nDigitar expressao: ");
                 expressao = inputExpressao.nextLine();
+                validador = new Validator(expressao);
                 vbt = new VeryBasicTokenizer(expressao);
                 tokens = vbt.tokenize();
-                if (vbt.expValida()) System.out.printf("Expressao digitada: %s\n\n", expressao);
+                if (validador.validate() && vbt.expValida()) System.out.printf("Expressao digitada: %s\n\n", expressao);
                 else {
                     // se o usuário escrever uma expressão inválida após já ter executado o programa corretamente
                     // precisamos avisar (acima) e resetar algumas variáveis para que as verificações das outras opções executem corretamente
+                    System.out.println("Expressão inválida. Tente novamente.");
                     etree = null;
                     arvore = null;
                 }
