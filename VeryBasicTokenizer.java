@@ -14,7 +14,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
- // função tokenize recebe uma String e retorna uma lista de Strings com os tokens reconhecidos
+// função tokenize recebe uma String e retorna uma lista de Strings com os tokens reconhecidos
+// função original também validava se existia algum caractere inválido na String.
+// Mantive essa funcionalidade, mas o resto das validações é feito na classe Validator
 public class VeryBasicTokenizer {
     private char[] input;
     private int index;
@@ -49,8 +51,6 @@ public class VeryBasicTokenizer {
         StringBuilder sb = new StringBuilder();
         char currChar = getNextChar();
         char lastChar = ' ';
-        int qtdAbertura = 0;
-        int qtdFechamento = 0;
         expValida = true; // ao tokenizar, expressão passa para válida (e vira false se encontrarmos algum erro)
         boolean isTokenizing = true;
         Boolean hasDecimalPoint = false;
@@ -105,12 +105,10 @@ public class VeryBasicTokenizer {
 
             } else if (currChar == ')') { // Reconhece símbolo (
                 tokens.add(")");
-                qtdFechamento++;
                 currChar = getNextChar();
 
             } else if (currChar == '(') { // Reconhece símbolo )
                 tokens.add("(");
-                qtdAbertura++;
                 currChar = getNextChar();
 
             } else if (currChar == '\0') {
@@ -126,17 +124,9 @@ public class VeryBasicTokenizer {
 
         }
 
-        //System.out.println("Encerrando...\n");
-        if (expValida && qtdAbertura != qtdFechamento) {
-            System.out.println("ERRO: Parênteses desbalanceados!\nTente novamente.\n");
-            expValida = false;
-        }
-
         if (!expValida) {
             sb = null;
             tokens = null;
-            qtdAbertura = 0;
-            qtdFechamento = 0;
             return null;
         }
         return tokens;

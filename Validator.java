@@ -1,13 +1,17 @@
+import java.util.Stack;
+
 public class Validator {
     // attributes 
     String input;
     char[] inputArr;
     Boolean validExp;
+    Stack<Character> parenthesisStack;
 
     public Validator(String expression) {
         this.input = expression;
         this.inputArr = input.toCharArray();
         this.validExp = false;
+        this.parenthesisStack = new Stack<>();
     }
 
     public Boolean getValidStatus() {
@@ -20,7 +24,6 @@ public class Validator {
     }
 
     public Boolean validate() {
-        int openings = 0, closings = 0;
         for (int i = 0; i < input.length(); i++) {
             // validar operadores seguidos
             // exceção é se o segundo operador for um '-', que é válido!!!
@@ -34,13 +37,21 @@ public class Validator {
                 return false;
             };
             // validar abertura e fechamento de parenteses
-            if (inputArr[i] == '(') openings++;
-            else if (inputArr[i] == ')') closings++;
+            if (inputArr[i] == '(') parenthesisStack.add(inputArr[i]); // empilhar abertura
+            else if (inputArr[i] == ')') {
+                if (parenthesisStack.isEmpty()) {
+                    System.out.println("Parênteses desbalenceados!");
+                    return false; // se encontramos fechamento e stack está vazio, inválido
+                }
+                else parenthesisStack.pop(); // senão, pop!
+            }
         }
-        if (openings != closings) {
-            System.out.println("Parênteses desbalanceados!");
+        if (!parenthesisStack.isEmpty()) {
+            System.out.println("Parênteses desbalenceados!");
             return false;
-        };
+
+        }
+        this.validExp = true;
         return true;
     }
 
