@@ -43,28 +43,34 @@ public class Main {
 
             // Input de expressao
             if(option == 1){
+                // vamos ler uma nova exp, transfromar arvore em null para não "sobrar" em memoria
+                etree = null;
+                arvore = null;
+
+                // ler expressão
                 System.out.printf("\nDigitar expressao: ");
                 expressao = inputExpressao.nextLine();
+
+                // validar
                 validador = new Validator(expressao);
                 validador.validate();
-                vbt = new VeryBasicTokenizer(expressao);
-                if (validador.getValidStatus() && vbt.expValida()) {
+
+                if (validador.getValidStatus()) {
+                    // se é valida, tokenizar
+                    vbt = new VeryBasicTokenizer(expressao);
                     tokens = vbt.tokenize();
-                    System.out.printf("Expressao digitada: %s\n\n", expressao);
+                    //System.out.printf("Expressao digitada: %s\n\n", expressao); // TODO versão deploy
+                    System.out.println("Expressão digitada: " + tokens); // versão debug
                 } 
                 else {
-                    // se o usuário escrever uma expressão inválida após já ter executado o programa corretamente
-                    // precisamos avisar (acima) e resetar algumas variáveis para que as verificações das outras opções executem corretamente
                     System.out.println("Expressão inválida. Tente novamente.\n");
-                    etree = null;
-                    arvore = null;
                 }
             }
 
             // Geracao da arvore
-            if(option == 2){
+            if (option == 2){
                 if(validador == null || !validador.getValidStatus()){
-                    System.out.println("\nFavor gerar uma expressao antes de selecionar esta opcao.\n");
+                    System.out.println("\nFavor gerar uma expressão antes de selecionar esta opcao.\n");
                 } else{
                     etree = new ExpressionTree();
                     arvore = etree.expressionTreeBuilder(tokens);
@@ -75,7 +81,7 @@ public class Main {
             // Impressao da arvore nos 3 modos
             if(option == 3){
                 if(arvore == null || etree == null){
-                    System.out.println("\nFavor gerar uma arvore antes de selecionar esta opcao.\n");
+                    System.out.println("\nFavor gerar uma arvore antes de selecionar esta opção.\n");
                 } else{
                     System.out.printf("\nPre ordem: ");
                     arvore.preOrderTraversal();
@@ -89,7 +95,7 @@ public class Main {
 
             // Calculo da arvore
             if(option == 4){
-                if(arvore == null){
+                if(arvore == null || etree == null){
                     System.out.println("\nFavor gerar uma arvore antes de selecionar esta opcao.\n");
                 } else{
                     System.out.printf("\nResultado: %.2f\n\n", evaluateTree.evaluate(arvore));

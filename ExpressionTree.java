@@ -29,7 +29,7 @@ public class ExpressionTree {
         operatorStack = new Stack<>();
         nodeStack = new Stack<>();
     }
-    
+
     // retorna a prioridade de cada operador
     int priority (char operator) {
         if (operator == '(' || operator == ')') {
@@ -57,6 +57,11 @@ public class ExpressionTree {
         nodeStack.push(tempNodeRoot);
     }
 
+    // regex para determinar se uma string é numérica (aceita int e float!)
+    private  boolean isValidNumber(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+      }
+
     // função responsável pela construção da árvore de expressão a partir de uma lista de Strings (retornada pelo VeryBasicTokenizer)
     public BinaryTree expressionTreeBuilder(List<String> input) {
         // percorrer a expressao
@@ -65,9 +70,7 @@ public class ExpressionTree {
             String currElement = input.get(i);
 
             // avaliar do que se trata o elemento atual
-            if (Character.isDigit(currElement.charAt(0)) || (currElement.charAt(0) == '-' && currElement.length() > 1 && Character.isDigit(currElement.charAt(1)))) {
-                // se o primeiro elemento de currElement for um numero, então sabemos que currElement todo será um numero (int ou float, de tamanho n)
-                // OU se primeiro elemento for - e segundo for um numero, é um numero válido NEGATIVO
+            if (isValidNumber(currElement)) {
                 // converter currelement para float, criar um novo Node com o dado...
                 NumberNode tempNumNode = new NumberNode(Float.parseFloat(currElement), null, null, null);
                 //  ... e empilhar no nodeStack

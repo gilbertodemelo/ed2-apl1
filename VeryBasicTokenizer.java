@@ -16,21 +16,27 @@ import java.util.List;
 
 // função tokenize recebe uma String e retorna uma lista de Strings com os tokens reconhecidos
 // função original também validava se existia algum caractere inválido na String.
-// Mantive essa funcionalidade, mas o resto das validações é feito na classe Validator
+// Mantive essa funcionalidade, mas existe uma classe Validator
 public class VeryBasicTokenizer {
+    // attributes
     private char[] input;
     private int index;
     private Boolean expValida;
 
+    // constructors
     public VeryBasicTokenizer(String str) {
         input = str.toCharArray();
         index = 0;
         expValida = false; // expressão é inválida até ser tokenizada
     }
 
+    // getters
     public Boolean expValida() {
         return this.expValida;
     }
+
+
+    // methods 
 
     // Avança para o próximo caractere e retorna seu valor.
     // O retorno '\0' quando chegou no final da string.
@@ -39,6 +45,7 @@ public class VeryBasicTokenizer {
         return input[index++];
     }
 
+    // retorna se o char é um operador válido
     private Boolean isValidOperator(char current) {
         if (current == '+' || current == '-' || current == '*' || current == '/') return true;
         else return false;
@@ -50,18 +57,16 @@ public class VeryBasicTokenizer {
         List<String> tokens = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         char currChar = getNextChar();
-        char lastChar = ' ';
         expValida = true; // ao tokenizar, expressão passa para válida (e vira false se encontrarmos algum erro)
         boolean isTokenizing = true;
         Boolean hasDecimalPoint = false;
 
         while (isTokenizing) {
-            // Ignora espaços em branco.
-            while (Character.isWhitespace(currChar)) {
-                currChar = getNextChar();
-            }
+            // System.out.println("Tokenizador! Curr: " + currChar + ", index: " + index); // PARA DEBUG
 
-            if ((currChar == '-' && tokens.isEmpty()) || (currChar == '-' && isValidOperator(lastChar))) { // Reconhece um número (inteiro ou float)
+            // tokeniza numeros negativos (operador unário)
+            // se atual == -    E (é o primeiro char) OU (vem depois de um parenteses) OU (vem depois de um operador)
+            if (currChar == '-' && (tokens.isEmpty() || tokens.get(tokens.size() - 1).equals("(") || isValidOperator(tokens.get(tokens.size() - 1).charAt(0)))) {
                 sb.setLength(0);
                 hasDecimalPoint = false;
                 sb.append(currChar);
@@ -75,7 +80,8 @@ public class VeryBasicTokenizer {
                 }
                 tokens.add(sb.toString());
 
-            } else if (Character.isDigit(currChar)) { // Reconhece um número (inteiro ou float)
+            // Reconhece um número (inteiro ou float)
+            } else if (Character.isDigit(currChar)) {
                 sb.setLength(0);
                 hasDecimalPoint = false;
                 while (Character.isDigit(currChar) || (currChar == '.' && !hasDecimalPoint)) { // Permite um único ponto decimal
@@ -120,8 +126,6 @@ public class VeryBasicTokenizer {
                 expValida = false;
                 isTokenizing = false;
             }
-            lastChar = currChar;
-
         }
 
         if (!expValida) {
@@ -129,6 +133,7 @@ public class VeryBasicTokenizer {
             tokens = null;
             return null;
         }
+        expValida = true;
         return tokens;
     }
 
