@@ -20,7 +20,7 @@ public class Main {
         Scanner inputUser = new Scanner(System.in);
         Scanner inputExpressao = new Scanner(System.in);
         String expressao = "";
-        ExpressionTree etree = new ExpressionTree();
+        ExpressionTree etree = null;
         BinaryTree arvore = null;
         VeryBasicTokenizer vbt = null;
         List<String> tokens = null;
@@ -46,13 +46,16 @@ public class Main {
                 System.out.printf("\nDigitar expressao: ");
                 expressao = inputExpressao.nextLine();
                 validador = new Validator(expressao);
+                validador.validate();
                 vbt = new VeryBasicTokenizer(expressao);
-                tokens = vbt.tokenize();
-                if (validador.validate() && vbt.expValida()) System.out.printf("Expressao digitada: %s\n\n", expressao);
+                if (validador.getValidStatus() && vbt.expValida()) {
+                    tokens = vbt.tokenize();
+                    System.out.printf("Expressao digitada: %s\n\n", expressao);
+                } 
                 else {
                     // se o usuário escrever uma expressão inválida após já ter executado o programa corretamente
                     // precisamos avisar (acima) e resetar algumas variáveis para que as verificações das outras opções executem corretamente
-                    System.out.println("Expressão inválida. Tente novamente.");
+                    System.out.println("Expressão inválida. Tente novamente.\n");
                     etree = null;
                     arvore = null;
                 }
@@ -60,10 +63,10 @@ public class Main {
 
             // Geracao da arvore
             if(option == 2){
-                if(!vbt.expValida()){
+                if(validador == null || !validador.getValidStatus()){
                     System.out.println("\nFavor gerar uma expressao antes de selecionar esta opcao.\n");
                 } else{
-                    
+                    etree = new ExpressionTree();
                     arvore = etree.expressionTreeBuilder(tokens);
                     System.out.println("\nArvore construida!!!\n");
                 }
