@@ -23,7 +23,8 @@ public class Validator {
         int openings = 0, closings = 0;
         for (int i = 0; i < input.length(); i++) {
             // validar operadores seguidos
-            if ((i != 0) && isValidOperator(inputArr[i]) && isValidOperator(inputArr[i-1])) {
+            // exceção é se o segundo operador for um '-', que é válido!!!
+            if ((i != 0) && isValidOperator(inputArr[i]) && isValidOperator(inputArr[i-1]) && (inputArr[i] != '-')) {
                 System.out.println("Operadores seguidos detectados!");
                 return false;
             };

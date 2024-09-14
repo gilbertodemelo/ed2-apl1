@@ -65,8 +65,9 @@ public class ExpressionTree {
             String currElement = input.get(i);
 
             // avaliar do que se trata o elemento atual
-            if (Character.isDigit(currElement.charAt(0))) {
+            if (Character.isDigit(currElement.charAt(0)) || (currElement.charAt(0) == '-' && currElement.length() > 1 && Character.isDigit(currElement.charAt(1)))) {
                 // se o primeiro elemento de currElement for um numero, então sabemos que currElement todo será um numero (int ou float, de tamanho n)
+                // OU se primeiro elemento for - e segundo for um numero, é um numero válido NEGATIVO
                 // converter currelement para float, criar um novo Node com o dado...
                 NumberNode tempNumNode = new NumberNode(Float.parseFloat(currElement), null, null, null);
                 //  ... e empilhar no nodeStack

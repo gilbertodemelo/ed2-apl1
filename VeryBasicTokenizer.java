@@ -64,6 +64,8 @@ public class VeryBasicTokenizer {
             if ((currChar == '-' && tokens.isEmpty()) || (currChar == '-' && isValidOperator(lastChar))) { // Reconhece um número (inteiro ou float)
                 sb.setLength(0);
                 hasDecimalPoint = false;
+                sb.append(currChar);
+                currChar = getNextChar();
                 while (Character.isDigit(currChar) || (currChar == '.' && !hasDecimalPoint)) { // Permite um único ponto decimal
                     if (currChar == '.') {
                         hasDecimalPoint = true;  
