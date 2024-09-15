@@ -106,6 +106,18 @@ public class Validator {
                 System.out.println("Por favor, use * para multiplicações.\nNumeros adjacentes a parênteses não são suportados.\n");
                 return false;
             }
+
+            // validar operador antes de fechamento de parenteses
+            if (currChar == ')' && isValidOperator(inputArr[i-1])) {
+                System.out.println("Sequencia inválida detectada: operador seguido por fechamento de parênteses.\n");
+                return false;
+            }
+
+            // validar operador como ultimo caractere
+            if (i == (input.length()-1) && isValidOperator(inputArr[i])) {
+                System.out.println("A expressão não pode terminar com um operador.\n");
+                return false;
+            }
             
             // validar balanceamento de parenteses
             if (currChar == '(') parenthesisStack.add(currChar); // empilhar abertura
