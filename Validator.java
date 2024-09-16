@@ -78,6 +78,11 @@ public class Validator {
             return false;
         }
 
+        if (input.length() == 0) {
+            System.out.println("Expressão vazia detectada!");
+            return false;
+        }
+
         // percorrer a array
         for (int i = 0; i < input.length(); i++) {
             char currChar = inputArr[i];
@@ -94,6 +99,24 @@ public class Validator {
                 System.out.println("Operadores seguidos detectados!");
                 return false;
             };
+
+            // tres ou mais subtraçoes
+            if (i > 2 && currChar == '-' && inputArr[i-1] == '-' && inputArr[i-2] == '-') {
+                System.out.println("Operadores seguidos detectados!");
+                return false;
+            }
+
+            // validar inicio com operador
+            if (i == 0 && currChar != '-' && isValidOperator(currChar)) {
+                System.out.println("A expressão não pode iniciar com um operador!");
+                return false;
+            }
+
+                // regra acima permite inicio com -- .....
+                if (i == 0 && currChar == '-' && inputArr[i+1] == '-') {
+                    System.out.println("A expressão não pode iniciar com um operador!");
+                    return false;
+                }
             
             // validar se não existem pontos seguidos
             if ((i != 0) && (currChar == '.') && (inputArr[i-1] == '.')) {

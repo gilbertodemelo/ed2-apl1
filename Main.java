@@ -69,7 +69,7 @@ public class Main {
 
             // Geracao da arvore
             if (option == 2){
-                if(validador == null || !validador.getValidStatus()){
+                if(validador == null || !validador.getValidStatus() || tokens.isEmpty()){
                     System.out.println("\nFavor gerar uma expressão antes de selecionar esta opcao.\n");
                 } else{
                     etree = new ExpressionTree();

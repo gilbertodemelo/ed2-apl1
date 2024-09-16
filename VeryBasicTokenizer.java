@@ -64,6 +64,11 @@ public class VeryBasicTokenizer {
         while (isTokenizing) {
             // System.out.println("Tokenizador! Curr: " + currChar + ", index: " + index); // PARA DEBUG
 
+             // Ignora espaços em branco.
+             while (Character.isWhitespace(currChar)) {
+                currChar = getNextChar();
+            }
+
             // tokeniza numeros negativos (operador unário)
             // se atual == -    E (é o primeiro char) OU (vem depois de um parenteses) OU (vem depois de um operador)
             if (currChar == '-' && (tokens.isEmpty() || tokens.get(tokens.size() - 1).equals("(") || isValidOperator(tokens.get(tokens.size() - 1).charAt(0)))) {
