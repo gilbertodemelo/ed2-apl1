@@ -24,7 +24,7 @@ public class Validator {
     // methods
 
     private Boolean isValidOperator(char current) {
-        if (current == '+' || current == '-' || current == '*' || current == '/') return true;
+        if (current == '+' || current == '-' || current == '*' || current == '/' || current == '.') return true;
         else return false;
     }
 
