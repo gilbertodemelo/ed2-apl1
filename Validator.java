@@ -24,12 +24,12 @@ public class Validator {
     // methods
 
     private Boolean isValidOperator(char current) {
-        if (current == '+' || current == '-' || current == '*' || current == '/' || current == '.') return true;
+        if (current == '+' || current == '-' || current == '*' || current == '/') return true;
         else return false;
     }
 
     private Boolean isValidOther(char current) {
-        if (current == '(' || current == ')' || current == ' ' || current == '/' || current == '\n' || current == '\0') return true;
+        if (current == '(' || current == ')' || current == ' ' || current == '\n' || current == '\0' || current == '.') return true;
         else return false;
     }
 
