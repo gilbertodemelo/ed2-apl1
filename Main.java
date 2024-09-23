@@ -59,8 +59,8 @@ public class Main {
                     // se é valida, tokenizar
                     vbt = new VeryBasicTokenizer(expressao);
                     tokens = vbt.tokenize();
-                    //System.out.printf("Expressao digitada: %s\n\n", expressao); // TODO versão deploy
-                    System.out.println("Expressão digitada: " + tokens); // versão debug
+                    System.out.printf("Expressao digitada: %s\n\n", expressao); // TODO versão deploy
+                    // System.out.println("Expressão digitada: " + tokens); // versão debug
                 } 
                 else {
                     System.out.println("Expressão inválida. Tente novamente.\n");
